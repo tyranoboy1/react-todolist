@@ -3,24 +3,19 @@ import TodoTemplate from './Components/TodoTemplate';
 import TodoList from './Components/TodoList';
 import { useCallback, useRef, useState } from 'react';
 
-function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: '리액트1',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '리액트2',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '리액트3',
+function createBulkTodos() {
+  const array = [];
+  for (let i = 1; i <= 2500; i++) {
+    array.push({
+      id: i,
+      text: `할 일 ${i}`,
       checked: false,
-    },
-  ]);
+    });
+  }
+  return array;
+}
+function App() {
+  const [todos, setTodos] = useState(createBulkTodos);
   const nextId = useRef(4); //새로운 객체를 만들때마다 id값에 1을 더해 주어야 함, usestate가 아니라 useRef를 사용하여 컴포넌트에서 사용할 변수를 만드는 이유? -> id 값은 렌더링되는 정보가 아니기때문에
   const onInsert = useCallback(
     (text) => {
